@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="xd">TOP 4 สัตว์วิเศษ</title>
+    <style>
+        html {
+            scroll-behavior: smooth
+        }
+
+        .reveal {
+            position: relative;
+            transform: translateY(150px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        body {
+            background-color: #666666;
+            background-image: url('https://graphicdesignjunction.com/wp-content/uploads/2012/07/background-pattern-41.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 0;
+
+            margin: 0;
+        }
+
+        section {
+            min-height: 100vh;
+            display: absolute;
+        }
+
+        div.reveal {
+            text-align: center;
+        }
+
+        #center {
+            width: 100%;
+            height: 20%;
+            object-fit: none;
+            object-position: center;
+        }
+
+
+        .nav-main {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #34495e;
+            display: flex;
+            flex-wrap: wrap;
+
+            z-index: 1000;
+        }
+
+        .nav-title {
+            flex: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-title-text {
+            font-family: arial;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #e48833;
+            font-size: 35px;
+            margin: 0;
+        }
+
+        .btn-toggle-nav {
+            width: 60px;
+            height: 100%;
+            background-color: #c0392b;
+        }
+
+        .btn-toggle-nav:hover {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        
+        .btn-x {
+            display: block;
+            line-height: 60px;
+            padding: 0 20px;
+            font-family: arial;
+            font-size: 24px;
+            color: #ecf0f1;
+        }
+        
+        .nav-main ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0 0 0 15px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .nav-main ul li {
+            list-style: none;
+            line-height: 60px;
+            letter-spacing: 3px;
+        }
+        
+        .nav-main ul li a {
+            display: block;
+            height: 100%;
+            padding: 0 10px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #2c3e50;
+            font-family: arial;
+            font-size: 16px;
+        }
+        
+        .nav-main ul li a:hover {
+            opacity: 0.5;
+            transition: all 0.1s ease-in-out;
+        }
+        
+        .nav-sidebar {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: calc(100vh - 60px);
+            padding: 0 5px;
+            background-color: #34495e;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .nav-sidebar ul {
+            padding: 15px 0 0 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        
+        .nav-siderbar ul li {
+            list-style: none;
+        }
+        
+        .nav-sidebar ul li span,
+        .nav-sidebar ul li a {
+            display: block;
+            line-height: 60px;
+            letter-spacing: 3px;
+            padding: 0 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #ecf0f1;
+            font-family: arial;
+            font-size: 16px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .nav-sidebar ul li a:hover {
+            background-color: #2c3e50;
+        }
+
+        .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+        </style>
+    <script> //sidebar
+        let toggleNavStatus = false;
+        
+        // Open and close nav
+        let toggleNav = function () {
+            let getSidebar = document.querySelector(".nav-sidebar");
+            let getSidebarUl = document.querySelector(".nav-sidebar ul");
+            let getSidebarTitle = document.querySelector(".nav-sidebar span");
+            let getSidebarLink = document.querySelectorAll(".nav-sidebar a");
+            
+            // Check if sidebar is closed
+            if (toggleNavStatus === false) {
+                getSidebarUl.style.visibility = "visible";
+                getSidebar.style.width = "272px";
+                getSidebarTitle.style.opacity = "0.5";
+                
+                let arrayLength = getSidebarLink.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    getSidebarLink[i].style.opacity = "1";
+                }
+                
+                toggleNavStatus = true;
+                
+            }
+            
+            // Check if sidebar is open
+            else if (toggleNavStatus === true) {
+                getSidebar.style.width = "50px";
+                getSidebarTitle.style.opacity = "0";
+                
+                let arrayLength = getSidebarLink.length;
+                for (let i = 0; i < arrayLength; i++) {
+                    getSidebarLink[i].style.opacity = "0";
+                }
+                
+                getSidebarUl.style.visibility = "hidden";
+                toggleNavStatus = false;
+                
+            }
+            
+        }
+        </script>
+        <script>
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+        
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 150;
+        
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    } else {
+                        reveals[i].classList.remove("active");
+                    }
+                }
+            }
+        
+            window.addEventListener("scroll", reveal);
+        
+        </script>
+</head>
+
+<body>
+    
+    <nav class="nav-main">
+        <div class="btn-toggle-nav" onclick="toggleNav()">
+            <div class="btn-x">☰</div>
+        </div>
+        <div class="nav-title">
+            <span class="nav-title-text">สัตว์วิเศษ</span>
+        </div>
+
+    </nav>
+    <div class="nav-sidebar">
+        <ul>
+            <li><span>สัตว์วิเศษ</span></li>
+            <li><a href="#a">นิฟเฟลอร์</a></li>
+            <li><a href="#b">โบวทรัคเกิล</a></li>
+            <li><a href="#c">ธันเดอร์เบิร์ด</a></li>
+            <li><a href="#d">ปีศาจสวูปปิ้ง</a></li>
+        </ul>
+
+    </div>
+    <img id="center" src="https://jediyuth.files.wordpress.com/2016/11/fantastic-beasts-creatures.jpg?w=1365&h=718.89">
+    <div class="container reveal">
+        <img id="a" 25px src="https://www.matichon.co.th/wp-content/uploads/2016/11/Niffler-728x305.jpg">
+        <section>
+            <h1>นิฟเฟลอร์</h1>
+            <p style="font-size: 23px;">
+                นิฟเฟลอร์แสนซนเป็นสัตว์ตัวเล็กมีขนสีดำและจมูกกลมยาวทำให้มันดูเหมือนตัวตุ่นผสมกับตุ่นปากเป็ด</p>
+            <p style="font-size: 23px;">
+                เจ้าสัตว์นักขุดตัวเล็กที่คล่องแคล่วว่องไวรายนี้ชอบทุกสิ่งทุกอย่างที่มีแสงระยิบระยับมันจึงไปคว้าหรือขโมยวัตถุ
+            </p>
+            <p style="font-size: 23px;">เปล่งแสงทุกชนิดที่เตะตามัน
+                นิฟเฟลอร์เก็บสมบัติเอาไว้ในกระเป๋าหน้าท้องซึ่งสามารถเก็บของได้มากกว่าที่</p>
+            <p style="font-size: 23px;">เห็นภายนอก แม้จะดูอ่อนโยนน่ารัก
+                แต่นิฟเฟลอร์ก็เป็นจอมทำลายล้างได้เวลามันตามไล่ล่าวัตถุเปล่งแสง</p>
+            <p style="font-size: 23px;">ดังนั้นคนฉลาดควรรู้ไว้ว่า พวกมันไม่เหมาะกับการเป็นสัตว์เลี้ยงในบ้าน</p>
+        </section>
+
+</div>
+
+    </div>
+    <div class="container reveal">
+
+
+        <section>
+
+            <img id="b" style="margin-top:  250px;"
+                src="https://www.matichon.co.th/wp-content/uploads/2016/11/Bowtruckle-728x303.jpg">
+            <h1>โบวทรัคเกิล</h1>
+            <P style="font-size: 23px;">โบวทรัลเกิลเป็นสัตว์ที่มีหน้าตาเหมือนกิ่งไม้
+                ในสภาพแวดล้อมตามธรรมชาติเราจะหาตัวมันได้ยากมาก</P>
+            <p style="font-size: 23px;">เพราะมันไม่เพียงมีขนาดเล็กแต่ยังกลมกลืนไปกับบรรดาพุ่มไม้ใบหญ้าอีกด้วย
+                มันมีขนาดสูงสุดแปดนิ้ว</p>
+            <p style="font-size: 23px;">และดูคล้ายลำต้นพืชพร้อมด้วยราก กิ่งก้านเล็กๆ ที่มีใบติดอยู่ และตาสีน้ำตาลสองดวง
+                นิวท์มีสัตว์น้อยชนิดนี้อยู่</p>
+            <p style="font-size: 23px;">อย่างน้อยหกตัว ชื่อว่าพิกเค็ต ไททัส ฟินน์ ป็อปปี มาร์โลว์ และทอม
+                แม้ว่าเขาอดไม่ได้ที่จะชอบพิกเค็ต มากเป็นพิเศษ</p>
+            <p style="font-size: 23px;">และเก็บเจ้าตัวนี้ไว้ในกระเป๋าเสื้อ โบวทรัลเกิลกินแต่แมลงเป็นอาหาร
+                พวกมันเป็นสัตว์รักสงบและขี้อายมาก</p>
+        </section>
+    </div>
+    <div class="container reveal">
+
+        <section id="c">
+
+            <img style="margin-top: 250px;"
+                src="https://www.matichon.co.th/wp-content/uploads/2016/11/Thunderbird-728x301.jpg">
+            <p> </p>
+
+            <h1>ธันเดอร์เบิร์ด</h1>
+            <p style="font-size: 23px;">
+                ธันเดอร์เบิร์ดเป็นสัตว์ปีกขนาดใหญ่ดูสง่างามซึ่งอาศัยอยู่ในภูมิอากาศอันแห้งแล้งของอริโซนา</p>
+            <p style="font-size: 23px;">หัวของมันคล้ายหัวนกอินทรี หรือฮิปโปกริฟฟ์ในโลกเวทมนตร์
+                ปีกอันทรงพลังซึ่งมีอยู่หลายปีกส่องแวววาวเป็นลาย</p>
+            <p style="font-size: 23px;">คล้ายเมฆและพระอาทิตย์ แล้วเมื่อมันกระพือปีกก็จะเกิดพายุขึ้น
+                ธันเดอร์เบิร์ดสามารถรับรู้ถึงอันตรายได้อีกด้วย </p>
+            <p style="font-size: 23px;">นิวท์ช่วยธันเดอร์เบิร์ดตัวหนึ่งมาจากพ่อค้าของเถื่อนในอียิปต์
+                เขาตั้งชื่อมันว่าแฟรงค์และสัญญาว่าจะนำ</p>
+            <p style="font-size: 23px;">มันกลับคืนสู่ถิ่นที่อยู่ตามธรรมชาติในแอริโซนา
+                น่าเศร้าที่ขาข้างหนึ่งของแฟรงค์เป็นแผลเพราะถูกล่ามโซ่
+            </p>
+            <p style="font-size: 23px;">
+                แต่เห็นได้ชัดว่ามันสำนึกบุญคุณที่นิวท์ได้ช่วยมันเอาไว้
+            </p>
+        </section>
+    </div>
+    <div class="container reveal">
+
+        <section>
+
+            <img style="margin-top:  250px;"
+                src="https://www.matichon.co.th/wp-content/uploads/2016/11/fantasticbeaststhebeasts10.jpg">
+            <h1 id="d">ปีศาจสวูปปิ้ง</h1>
+            <p style="font-size: 23px;">
+                สัตว์ที่ชื่อไม่เป็นมงคลอย่างปีศาจสวูปปิ้งดูคล้ายสัตว์เลื้อยคลานผสมกับผีเสื้อขนาดใหญ่มาก</p>
+            <p style="font-size: 23px;">เมื่อพักผ่อน มันจะอาศัยอยู่ในดักแด้หนามสีเขียว แต่เมื่อสยายปีกแหลมสีสันสวยงาม
+                มันจะดูงดงามอย่างน่าประหลาด</p>
+            <p style="font-size: 23px;">มันอาจเป็นตัวอันตรายเพราะสามารถดูดสมองของสัตว์ตัวอื่นได้
+                แต่ในทางตรงกันข้ามหากเรานำพิษของมันไป</p>
+            <p style="font-size: 23px;">ทำให้เจือจางด้วยวิธีที่ถูกต้องก็จะสามารถนำมาใช้ลบความทรงจำที่เลวร้ายได้</p>
+        </section>
+        <br><br><br><br><br>
+        <button id="myBtn">DONT CLICK THIS BUTTON</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p style="font-size: 50px;">I SAID DONT CLICK IT BUT U STILL DID THE DAMN THING</p>
+    <p style="font-size: 25px;">thx for reading</p>
+  </div>
+  <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+        <br><br><br><br><br>
+    </div>
+</body>
+
+</html>
